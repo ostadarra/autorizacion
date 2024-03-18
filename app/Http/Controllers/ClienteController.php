@@ -9,6 +9,12 @@ use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
+    //Constructor
+    public function __construct()
+    {
+        $this->midleware('can:Crear cliente')->only('create');
+    }
+    
     public function index()
     {
         $clientes = Cliente::all();

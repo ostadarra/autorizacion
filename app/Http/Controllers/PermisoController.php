@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class RolController extends Controller
+class PermisoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('usuarios.roles', compact('roles'));
+        $permisos = Permission::all();
+        return view('usuarios.permisos', compact('permisos'));
     }
 
     /**
@@ -30,8 +29,8 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        Role::create($request->all());
-        return redirect()->route('roles.index');
+        Permission::create($request->all());
+        return redirect()->route('permisos.index');
     }
 
     /**
@@ -47,18 +46,15 @@ class RolController extends Controller
      */
     public function edit(string $id)
     {
-        $rol = Role::find($id);
-        $permisos = Permission::all();
-        return view('usuarios.rolpermiso', compact('rol', 'permisos'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, string $id)
     {
-        $role->syncPermissions($request->input('permissions', []));
-        return redirect()->route('roles.index')->with('mensaje', 'Permisos actualizados');
+        //
     }
 
     /**

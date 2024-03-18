@@ -319,18 +319,27 @@ return [
             'label_color' => 'success',
         ],
 
-        ['header' => 'Permisos de usuarios'],
+        ['header' => 'Permisos de usuarios',
+         'can' => 'Administrador general',  
+        ],
         [
             'text' => 'Roles',
             'route'  => 'roles.index',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-lock',
+            'can' => 'Administrador general',
         ],
         [
             'text' => 'Permisos',
-            // 'route'  => 'permisos.index',
+            'route'  => 'permisos.index',
             'icon' => 'fas fa-fw fa-lock',
+            'can' => 'Administrador general',
         ],        
-
+        [
+            'text' => 'Usuarios',
+            'route'  => 'usuarios.index',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'Administrador general',
+        ], 
 
 
 

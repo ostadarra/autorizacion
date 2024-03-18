@@ -8,6 +8,11 @@
 
 @section('content')
     <div class="card">
+        @can('Crear cliente')    
+            <div class="card-header">
+                <a href="{{ route('cliente.create') }}" class="btn btn-primary float-right mt-2 mr-4">Nuevo</a>
+            </div>
+        @endcan
         <div class="card-body">
             {{-- Setup data for datatables --}}
             @php
@@ -40,16 +45,18 @@
                        <td>{{ $cliente->nombre }}</td>
                        <td>{{ $cliente->email }}</td>
                        <td>
-                            <div>  
+                        <div class="d-flex align-items-center">
                                 <a href="{{ route('cliente.edit', $cliente->id) }}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                     <i class="fa fa-lg fa-fw fa-pen"></i>
                                 </a>
-                                <form action="{{ route('cliente.destroy', $cliente) }}" method="post" class="formEliminar">
-                                    @csrf   
-                                    @method('delete')
-                                    {!!$btnDelete!!}
-                                </form>
-                            </div>  
+                                @can('Eliminar cliente')
+                                    <form action="{{ route('cliente.destroy', $cliente) }}" method="post" class="formEliminar">
+                                        @csrf   
+                                        @method('delete')
+                                        {!!$btnDelete!!}
+                                    </form>
+                                @endcan
+                            </div>
                         </td>
                     </tr>
                 @endforeach

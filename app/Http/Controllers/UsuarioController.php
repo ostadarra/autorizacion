@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
-class RolController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('usuarios.roles', compact('roles'));
+        $usuarios = User::all();
+        return view('usuarios.index', compact('usuarios'));
     }
 
     /**
@@ -30,8 +30,7 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        Role::create($request->all());
-        return redirect()->route('roles.index');
+        //
     }
 
     /**
@@ -47,18 +46,18 @@ class RolController extends Controller
      */
     public function edit(string $id)
     {
-        $rol = Role::find($id);
-        $permisos = Permission::all();
-        return view('usuarios.rolpermiso', compact('rol', 'permisos'));
+        $usuario = User::find($id);
+        $roles = Role::all();
+        return view('usuarios.edit', compact('usuario', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, User $usuario)
     {
-        $role->syncPermissions($request->input('permissions', []));
-        return redirect()->route('roles.index')->with('mensaje', 'Permisos actualizados');
+        $usuario->roles()->sync($request->input('roles', []));
+        return redirect()->route('usuarios.index')->with('mensaje', 'Roles actualizados');
     }
 
     /**
